@@ -1,0 +1,1 @@
+const String kHiveBoxDefaultEncryptionKey = 'hiveBoxDefaultEncryptionKey';
