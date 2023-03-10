@@ -27,7 +27,7 @@ Add `easy_hive` to your `pubspec.yaml`:
 
 dependencies:
 
-  easy_hive: ^1.0.0
+  easy_hive: ^1.0.1+2
 
 ```
 
@@ -188,7 +188,9 @@ extension GeneralSettingsExtension on SettingsBox {
 
 ### Enable encryption 🔐
 
-#### 1. Add `EncryptionMixin` to your box class:
+#### 1. Install [easy_hive_encryption](https://pub.dev/packages/easy_hive_encryption):
+
+#### 2. Add `EncryptionMixin` to your box class:
 
 ```dart
 class SettingsBox extends EasyBox with EncryptionMixin {
@@ -201,7 +203,7 @@ class SettingsBox extends EasyBox with EncryptionMixin {
 }
 ```
 
-#### 2. Follow [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)'s guide for specific platform setup.
+#### 3. Follow [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)'s guide for specific platform setup.
 
 ### Enable lazy loading 🐢
 
