@@ -1,0 +1,1 @@
+packages/easy_hive/CHANGELOG.md

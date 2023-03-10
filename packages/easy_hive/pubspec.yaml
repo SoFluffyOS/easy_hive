@@ -1,7 +1,7 @@
 name: easy_hive
-description: A very good flutter package
+description: A wrapper of Hive database for easier & simpler usage.
 version: 1.0.0
-publish_to: none
+repository: https://github.com/simonpham/easy_hive
 
 environment:
   sdk: ">=2.19.0 <3.0.0"
