@@ -1,7 +1,11 @@
 import 'package:easy_hive/easy_hive.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  await EasyBox.initialize();
+
+  await SettingsBox().init();
+
   runApp(const EasyHiveDemo());
 }
 
@@ -20,12 +24,11 @@ class EasyHiveDemo extends StatelessWidget {
               const Text(
                 'You have pushed the button this many times:',
               ),
-              StreamBuilder(
-                initialData: SettingsBox().counter,
-                stream: SettingsBox().box.watch(
-                      key: BoxKeys.hiveSettingsKeyCounter,
-                    ),
-                builder: (BuildContext context, _) {
+              ValueListenableBuilder(
+                valueListenable: [
+                  Settings.counter,
+                ].of(SettingsBox()),
+                builder: (context, _, __) {
                   return Text(
                     '${SettingsBox().counter}',
                     style: Theme.of(context).textTheme.headlineMedium,
@@ -47,17 +50,15 @@ class EasyHiveDemo extends StatelessWidget {
   }
 }
 
-/// Example path: lib/data/local/boxes/keys.dart
-class BoxKeys {
-  static const String hiveSettingsBoxKey = 'hiveSettingsBoxKey';
-  static const String hiveSettingsKeyThemeMode = 'hiveSettingsKeyThemeMode';
-  static const String hiveSettingsKeyCounter = 'hiveSettingsKeyCounter';
+enum Settings {
+  key,
+  themeMode,
+  counter,
 }
 
-/// Example path: lib/data/local/boxes/settings.dart
 class SettingsBox extends EasyBox {
   @override
-  String get boxKey => BoxKeys.hiveSettingsBoxKey;
+  String get boxKey => Settings.key.toString();
 
   /// Singleton.
   static final SettingsBox _instance = SettingsBox._();
@@ -69,31 +70,16 @@ class SettingsBox extends EasyBox {
 
 extension GeneralSettingsExtension on SettingsBox {
   ThemeMode get themeMode {
-    final index = box.get(
-      BoxKeys.hiveSettingsKeyThemeMode,
+    final index = get(
+      Settings.themeMode,
       defaultValue: 0,
     );
     return ThemeMode.values[index];
   }
 
-  set themeMode(ThemeMode value) {
-    box.put(
-      BoxKeys.hiveSettingsKeyThemeMode,
-      value.index,
-    );
-  }
+  set themeMode(ThemeMode value) => put(Settings.themeMode, value.index);
 
-  int get counter {
-    return box.get(
-      BoxKeys.hiveSettingsKeyCounter,
-      defaultValue: 0,
-    );
-  }
+  int get counter => get(Settings.counter, defaultValue: 0);
 
-  set counter(int value) {
-    box.put(
-      BoxKeys.hiveSettingsKeyCounter,
-      value,
-    );
-  }
+  set counter(int value) => put(Settings.counter, value);
 }

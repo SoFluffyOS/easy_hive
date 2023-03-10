@@ -1,7 +1,8 @@
 /// A very good flutter package
 library easy_hive;
 
-export 'package:hive/hive.dart';
-export 'package:hive_flutter/hive_flutter.dart';
-
-export 'src/easy_hive.dart';
+// export 'src/base/annotations.dart';
+export 'src/easy_box.dart';
+export 'src/refreshable_box.dart';
+export 'src/utils/extensions.dart';
+export 'src/mixin/lazy_mixin.dart';

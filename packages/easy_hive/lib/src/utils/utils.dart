@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 
 void printLog(dynamic message) {

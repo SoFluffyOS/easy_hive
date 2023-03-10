@@ -1,18 +1,224 @@
 # Easy Hive
 
+[Easy Hive](https://pub.dev/packages/easy_hive) is wrapper of [Hive](https://pub.dev/packages/hive) database for
+easier & simpler usage.
+
 ## Installation 💻
 
 Add `easy_hive` to your `pubspec.yaml`:
 
 ```yaml
+
 dependencies:
-  easy_hive:
+
+  easy_hive: ^1.0.0
+
 ```
 
 Install it:
 
 ```sh
+
 flutter pub get
+
 ```
 
+## Usage 📖
+
+You can either define your boxes as _Singleton_ classes **or** use a service locator like [
+_get_it_](https://pub.dev/packages/get_it).
+
+### 1. Define box keys 🔑
+
+```dart
+enum Settings {
+  key, // Use as box key. You can use a String constant instead.
+
+  /// Other keys below...
+  themeMode,
+  counter,
+}
+```
+
+### 1. Define a box 📦
+
+```dart
+
+import 'package:easy_hive/easy_hive.dart';
+
+class SettingsBox extends EasyBox {
+  @override
+  String get boxKey => Settings.key.toString();
+
+  /// Singleton.
+  static final SettingsBox _instance = SettingsBox._();
+
+  factory SettingsBox() => _instance;
+
+  SettingsBox._();
+}
+
+```
+
+<details>
+<summary>Or to use with get_it</summary>
+
+```dart
+
+import 'package:easy_hive/easy_hive.dart';
+
+class SettingsBox extends EasyBox {
+  @override
+  String get boxKey => Settings.key.toString();
+}
+
+```
+
+</details>
+
+### 2. Initialize box 🚀
+
+```dart
+
+import 'package:easy_hive/easy_hive.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
+  await SettingsBox().init();
+
+  // runApp...
+}
+
+```
+
+<details>
+<summary>Or to use with get_it</summary>
+
+```dart
+
+import 'package:easy_hive/easy_hive.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
+  final settingsBox = SettingsBox();
+  await settingsBox.init();
+  GetIt.I.registerSingleton<SettingsBox>(settingsBox);
+
+  // runApp...
+}
+
+```
+
+</details>
+
+### 3. Define getter & setter for your data 💄
+
+```dart
+extension GeneralSettingsExtension on SettingsBox {
+  ThemeMode get themeMode {
+    final index = get(
+      Settings.themeMode,
+      defaultValue: 0,
+    );
+    return ThemeMode.values[index];
+  }
+
+  set themeMode(ThemeMode value) => put(Settings.themeMode, value.index);
+
+  int get counter => get(Settings.counter, defaultValue: 0);
+
+  set counter(int value) => put(Settings.counter, value);
+}
+```
+
+### 4. Use it anywhere 🔥
+
+```dart
+  Text(
+    'You have pushed: ${SettingsBox().counter} times.',
+    style: Theme.of(context).textTheme.headlineMedium,
+  ),
+  FilledButton(
+    onPressed: () {
+      SettingsBox().counter++;
+    },
+    child: Text('Increment'),
+  ),
+  FilledButton(
+    onPressed: () {
+      SettingsBox().themeMode = ThemeMode.dark;
+    },
+    child: Text('Dark Theme'),
+  ),
+```
+
+<details>
+<summary>Or to use with get_it</summary>
+
+```dart
+  Text(
+    'Count: ${GetIt.I<SettingsBox>().counter}',
+    style: Theme.of(context).textTheme.headlineMedium,
+  ),
+```
+
+</details>
+
+## Advanced Usage 😈
+
+### Listen to value changes 🎧
+
+#### Recommended: Use `RefreshableBox` + [provider](https://pub.dev/packages/provider):
+
+```dart
+class SettingsBox extends RefreshableBox {
+  @override
+  String get boxKey => Settings.key.toString();
+}
+```
+
+Then use it as a provider:
+
+```dart
+  ChangeNotifierProvider(
+    create: (_) => SettingsBox(),
+    child: SomeWidget(),
+  ),
+```
+
+```dart
+// Inside SomeWidget.
+Text(
+  'You have pushed: '
+  '${context.select((SettingsBox _) => _.counter)} times.',
+),
+```
+
+For more info, see [provider](https://pub.dev/packages/provider) package.
+
 ---
+
+#### Or if you don't want `RefreshableBox`:
+
+Just use `ValueListenableBuilder` to listen to changes.
+
+```dart
+ValueListenableBuilder(
+  valueListenable: [
+    Settings.counter,
+  ].of(SettingsBox()),
+  builder: (context, _, __) {
+    return Text(
+      '${SettingsBox().counter}',
+    );
+  },
+),
+```
+
+## Happy Coding 🦊
+
+Made with ❤️ by [Simon Pham](https://github.com/simonpham)
