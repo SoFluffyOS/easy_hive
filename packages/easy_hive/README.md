@@ -99,8 +99,7 @@ class SettingsBox extends EasyBox {
 import 'package:easy_hive/easy_hive.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
+  await EasyBox.initialize();
 
   await SettingsBox().init();
 
