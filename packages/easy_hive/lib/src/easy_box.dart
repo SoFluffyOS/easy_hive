@@ -22,9 +22,10 @@ abstract class EasyBox<T> implements BaseEasyBox {
   /// Otherwise, it will throw an exception when you try to get the value.
   static Future<void> initialize({
     bool enumKeySupport = true,
+    String? subDir,
   }) async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Hive.initFlutter();
+    await Hive.initFlutter(subDir);
 
     EasyBox.enumKeySupport = enumKeySupport;
   }
