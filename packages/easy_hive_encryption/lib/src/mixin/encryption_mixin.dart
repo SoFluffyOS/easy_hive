@@ -16,6 +16,9 @@ mixin EncryptionMixin<T> on EasyBox<T> {
       aOptions: AndroidOptions(
         encryptedSharedPreferences: true,
         resetOnError: true,
+        keyCipherAlgorithm:
+            KeyCipherAlgorithm.RSA_ECB_OAEPwithSHA_256andMGF1Padding,
+        storageCipherAlgorithm: StorageCipherAlgorithm.AES_GCM_NoPadding,
       ),
     );
     var key = await secureStorage.read(key: encryptionKeyName);
