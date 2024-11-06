@@ -1,21 +1,21 @@
 name: easy_hive_encryption
 description: Extension of easy_hive to support encryption.
-version: 1.0.0+1
+version: 1.1.0
 repository: https://github.com/simonpham/easy_hive
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: '>=2.19.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  easy_hive: ^1.0.0+1
+  easy_hive: ^1.0.1
   hive: ^2.2.3
 
-  flutter_secure_storage: ^8.0.0
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1

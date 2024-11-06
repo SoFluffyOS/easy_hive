@@ -100,9 +100,10 @@ abstract class EasyBox<T> implements BaseEasyBox {
       key = key.toString();
     }
     return box.get(
-      key,
-      defaultValue: defaultValue,
-    );
+          key,
+          defaultValue: defaultValue,
+        ) ??
+        defaultValue;
   }
 
   @override
@@ -114,8 +115,8 @@ abstract class EasyBox<T> implements BaseEasyBox {
   }
 
   @override
-  ValueListenable<void> listenTo<T>(List<T> keys) {
-    if (T == Enum && enumKeySupport) {
+  ValueListenable<void> listenTo<T2>(List<T2> keys) {
+    if (T2 == Enum && enumKeySupport) {
       return this.box.listenable(
             keys: keys.map((e) => e.toString()).toList(),
           );

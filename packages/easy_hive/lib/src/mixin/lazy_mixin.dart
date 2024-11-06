@@ -15,10 +15,11 @@ mixin LazyMixin<T> on EasyBox<T> {
     return result as LazyBox<T>;
   }
 
+  @override
   Future<dynamic> get(dynamic key, {dynamic defaultValue}) async {
     if (key is Enum) {
       key = key.toString();
     }
-    return _lazyBox.get(key, defaultValue: defaultValue);
+    return await _lazyBox.get(key, defaultValue: defaultValue) ?? defaultValue;
   }
 }
