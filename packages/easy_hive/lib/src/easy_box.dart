@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:easy_hive/src/utils/constants.dart';
-import 'package:easy_hive/src/utils/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -81,15 +80,7 @@ abstract class EasyBox<T> implements BaseEasyBox {
       return;
     }
 
-    try {
-      await openEncryptedBox();
-    } catch (_) {
-      printLog(
-        '[EasyBox] Failed to open encrypted box $boxKey. Deleting...',
-      );
-      await Hive.deleteBoxFromDisk(boxKey);
-      await openEncryptedBox();
-    }
+    await openEncryptedBox();
 
     _isInitializing = false;
   }
@@ -117,13 +108,13 @@ abstract class EasyBox<T> implements BaseEasyBox {
   @override
   ValueListenable<void> listenTo<T2>(List<T2> keys) {
     if (T2 == Enum && enumKeySupport) {
-      return this.box.listenable(
-            keys: keys.map((e) => e.toString()).toList(),
-          );
+      return box.listenable(
+        keys: keys.map((e) => e.toString()).toList(),
+      );
     }
-    return this.box.listenable(
-          keys: keys,
-        );
+    return box.listenable(
+      keys: keys,
+    );
   }
 
   @protected
