@@ -1,3 +1,7 @@
+# 1.2.1
+
+- ⬆️ Upgrade `easy_hive` dependency to 1.2.0 for critical data loss fix.
+
 # 1.2.0
 
 - ⬆️ Upgrade flutter_secure_storage: ^9.2.2.
