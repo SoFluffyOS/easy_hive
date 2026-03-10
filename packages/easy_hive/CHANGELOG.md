@@ -1,3 +1,8 @@
+# 1.2.0
+
+- 🛡️ Remove automatic box deletion on initialization failure to prevent silent data loss.
+- 🧪 Add regression tests for initialization failure.
+
 # 1.1.0
 
 - ⬆️ Bump Dart SDK constraint to >=2.19.0 <4.0.0.
