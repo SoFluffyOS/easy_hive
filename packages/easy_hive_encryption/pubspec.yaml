@@ -1,6 +1,6 @@
 name: easy_hive_encryption
 description: Extension of easy_hive to support encryption.
-version: 2.0.0
+version: 3.0.0+1
 repository: https://github.com/simonpham/easy_hive
 
 environment:
