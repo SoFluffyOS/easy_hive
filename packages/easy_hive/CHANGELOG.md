@@ -1,3 +1,8 @@
+# 2.0.0
+
+- ⬆️ Updates minimum supported SDK version to Flutter 3.38/Dart 3.10.
+- ✈️ Migrate from hive to hive_ce
+
 # 1.2.0
 
 - 🛡️ Remove automatic box deletion on initialization failure to prevent silent data loss.
