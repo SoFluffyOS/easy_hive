@@ -1,5 +1,5 @@
 /// A very good flutter package
-library easy_hive;
+library;
 
 // export 'src/base/annotations.dart';
 export 'src/easy_box.dart';
