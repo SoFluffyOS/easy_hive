@@ -1,3 +1,3 @@
-library easy_hive_encryption;
+library;
 
 export 'src/mixin/encryption_mixin.dart';
