@@ -1,3 +1,9 @@
+# 3.0.0 💥
+
+Note (Android): `flutter_secure_storage` version 11.0.0 will remove some vulnerable cipher algorithm. Advising to upgrade `easy_hive_encryption` to 2.0.0 first so existing data will be migrated to use `AES_GCM_NoPadding`.
+
+- ⬆️ Upgrade flutter_secure_storage: 11.0.0.
+
 # 2.0.0
 
 Note (Android): `flutter_secure_storage` version 11.0.0 will remove some vulnerable cipher algorithm. Advising to upgrade to this version first so existing data will be migrated to use `AES_GCM_NoPadding`.

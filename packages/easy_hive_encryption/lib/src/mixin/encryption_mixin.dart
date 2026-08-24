@@ -19,7 +19,6 @@ mixin EncryptionMixin<T> on EasyBox<T> {
     try {
       const secureStorage = FlutterSecureStorage(
         aOptions: AndroidOptions(
-          encryptedSharedPreferences: true,
           resetOnError: true,
           keyCipherAlgorithm:
               KeyCipherAlgorithm.RSA_ECB_OAEPwithSHA_256andMGF1Padding,
