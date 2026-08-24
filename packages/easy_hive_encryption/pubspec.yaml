@@ -13,7 +13,7 @@ dependencies:
   easy_hive: ^2.0.0
   hive_ce: ^2.19.3
 
-  flutter_secure_storage: ^9.2.2
+  flutter_secure_storage: 10.3.1
 
 dev_dependencies:
   flutter_test:
